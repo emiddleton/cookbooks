@@ -1,8 +1,6 @@
 include_recipe "portage"
 include_recipe "portage::porticron"
 
-portage_package_keywords "=app-admin/lib_users-0.3"
-
 %w(
   app-admin/pwgen
   app-arch/atool
@@ -11,7 +9,6 @@ portage_package_keywords "=app-admin/lib_users-0.3"
   net-misc/rsync
   net-misc/wget
   sys-apps/iproute2
-  sys-process/lsof
 ).each do |pkg|
   package pkg
 end
@@ -41,22 +38,8 @@ file "/etc/conf.d/local" do
   action :delete
 end
 
-%w(
-  /etc/init.d/net.lo
-  /etc/init.d/net.eth0
-  /etc/init.d/net.eth1
-  /etc/runlevels/boot/net.lo
-  /etc/runlevels/boot/net.eth0
-  /etc/runlevels/boot/net.eth1
-  /etc/runlevels/default/net.lo
-  /etc/runlevels/default/net.eth0
-  /etc/runlevels/default/net.eth1
-  /etc/conf.d/net
-).each do |f|
-  file f do
-    action :delete
-    backup 0
-  end
+link "/etc/init.d/net.eth0" do
+  to "/etc/init.d/net.lo"
 end
 
 %w(devfs dmesg udev).each do |f|
@@ -88,7 +71,7 @@ end
   end
 end
 
-%w(local netmount).each do |f|
+%w(net.eth0 local netmount).each do |f|
   link "/etc/runlevels/default/#{f}" do
     to "/etc/init.d/#{f}"
   end
