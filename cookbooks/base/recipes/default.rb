@@ -146,15 +146,10 @@ base_plugins = %w(
   open_files
   open_inodes
   processes
+  iostat
+  swap
+  vmstat
 )
-
-if node[:virtualization][:role] == "host"
-  base_plugins += %w(
-    iostat
-    swap
-    vmstat
-  )
-end
 
 base_plugins.each do |p|
   munin_plugin p
@@ -178,38 +173,36 @@ nagios_service "PROCS" do
   servicegroups "system"
 end
 
-if node[:virtualization][:role] == "host"
-  nagios_plugin "raid" do
-    source "check_raid"
-  end
+nagios_plugin "raid" do
+  source "check_raid"
+end
 
-  nrpe_command "check_raid" do
-    command "/usr/lib/nagios/plugins/check_raid"
-  end
+nrpe_command "check_raid" do
+  command "/usr/lib/nagios/plugins/check_raid"
+end
 
-  nagios_service "RAID" do
-    check_command "check_nrpe!check_raid"
-    servicegroups "system"
-  end
+nagios_service "RAID" do
+  check_command "check_nrpe!check_raid"
+  servicegroups "system"
+end
 
-  nagios_service "LOAD" do
-    check_command "check_munin!load!#{node[:cpu][:total]*3}!#{node[:cpu][:total]*10}"
-    servicegroups "system"
-  end
+nagios_service "LOAD" do
+  check_command "check_munin!load!#{node[:cpu][:total]*3}!#{node[:cpu][:total]*10}"
+  servicegroups "system"
+end
 
-  nagios_service "DISKS" do
-    check_command "check_munin!df!90!95"
-    notification_interval 15
-    servicegroups "system"
-  end
+nagios_service "DISKS" do
+  check_command "check_munin!df!90!95"
+  notification_interval 15
+  servicegroups "system"
+end
 
-  nagios_service_escalation "DISKS" do
-    notification_interval 15
-  end
+nagios_service_escalation "DISKS" do
+  notification_interval 15
+end
 
-  nagios_service "SWAP" do
-    check_command "check_munin!swap!128!1024"
-    notification_interval 180
-    servicegroups "system"
-  end
+nagios_service "SWAP" do
+  check_command "check_munin!swap!128!1024"
+  notification_interval 180
+  servicegroups "system"
 end

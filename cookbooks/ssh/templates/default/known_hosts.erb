@@ -7,9 +7,6 @@
     localstr += ",#{n[:hostname]}.local"
   end
 
-  if n[:virtualization][:role] == "host"
-    localstr += ",host"
-  end
 %>
 <%= n[:fqdn] %>,<%= n[:ipaddress] %>,<%= n[:hostname] %><%= localstr %> ssh-<%= t %> <%= n[:keys][:ssh]["host_#{t}_public"] %>
 <% end %>
