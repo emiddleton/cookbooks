@@ -12,7 +12,7 @@
 ::1 localhost
 
 # this node
-<%= node[:ipaddress] %> <%= node[:fqdn] %> <%= node[:hostname] %>
+<%= node[:ipaddress] %> <%= node[:fqdn] %> <%= node[:hostname] %> local-ipv4
 <% if node[:local_ipaddress] %>
 <%= node[:local_ipaddress] %> <%= node[:hostname] %>.local
 <% end %>

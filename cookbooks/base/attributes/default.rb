@@ -8,22 +8,10 @@ default[:cluster][:name] = "default"
 default[:contacts][:hostmaster] = "root@#{node[:fqdn]}"
 
 # time zone
-default[:timezone] = "Europe/Berlin"
+default[:timezone] = "Asia/Tokyo"
 
 # custom /etc/hosts entries
 default[:base][:additional_hosts] = []
-
-# ohai does not detect Linux-VServer
-if File.exists?("/proc/self/vinfo")
-  set[:virtualization][:emulator] = "vserver"
-  if File.exists?("/proc/virtual")
-    set[:virtualization][:role] = "host"
-  else
-    set[:virtualization][:role] = "guest"
-  end
-else
-  set[:virtualization][:role] = "host"
-end
 
 # sysctl attributes
 default[:sysctl][:net][:ipv4][:ip_forward] = 0

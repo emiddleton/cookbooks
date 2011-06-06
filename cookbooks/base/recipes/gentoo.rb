@@ -4,34 +4,13 @@ include_recipe "portage::porticron"
 portage_package_keywords "=app-admin/lib_users-0.3"
 
 %w(
-  app-admin/lib_users
   app-admin/pwgen
-  app-admin/pydf
-  app-admin/superadduser
   app-arch/atool
   app-arch/xz-utils
-  app-misc/colordiff
-  app-misc/mc
   app-misc/tmux
-  app-shells/bash-completion
-  mail-client/mailx
-  net-analyzer/bwm-ng
-  net-analyzer/iptraf-ng
-  net-analyzer/mtr
-  net-analyzer/netcat
-  net-analyzer/tcpdump
-  net-analyzer/traceroute
-  net-dns/bind-tools
-  net-misc/keychain
   net-misc/rsync
-  net-misc/telnet-bsd
   net-misc/wget
-  net-misc/whois
   sys-apps/iproute2
-  sys-apps/pciutils
-  sys-fs/ncdu
-  sys-process/htop
-  sys-process/iotop
   sys-process/lsof
 ).each do |pkg|
   package pkg
@@ -42,25 +21,11 @@ file "/etc/profile.d/prompt.sh" do
   backup 0
 end
 
-if node[:virtualization][:emulator] == "vserver" and node[:virtualization][:role] == "guest"
-  file "/etc/init.d/shutdown.sh" do
-    content "exit 0\n"
+%w(shutdown reboot).each do |t|
+  cookbook_file "/etc/init.d/#{t}.sh" do
+    source "#{t}.sh"
     mode "0755"
     backup 0
-  end
-
-  file "/etc/init.d/reboot.sh" do
-    content "exit 0\n"
-    mode "0755"
-    backup 0
-  end
-else
-  %w(shutdown reboot).each do |t|
-    cookbook_file "/etc/init.d/#{t}.sh" do
-      source "#{t}.sh"
-      mode "0755"
-      backup 0
-    end
   end
 end
 

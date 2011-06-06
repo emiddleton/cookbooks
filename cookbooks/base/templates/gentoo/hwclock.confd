@@ -7,7 +7,7 @@ clock="UTC"
 # If you want to set the Hardware Clock to the current System Time 
 # (software clock) during shutdown, then say "YES" here.
 # You normally don't need to do this if you run a ntp daemon.
-clock_systohc="<% if node[:virtualization][:role] == "guest" %>NO<% else %>YES<% end %>"
+clock_systohc="NO"
 
 # If you want to set the system time to the current hardware clock
 # during bootup, then say "YES" here. You do not need this if you are
@@ -15,7 +15,7 @@ clock_systohc="<% if node[:virtualization][:role] == "guest" %>NO<% else %>YES<%
 # Also, be aware that if you set this to "NO", the system time will
 # never be saved to the hardware clock unless you set
 # clock_systohc="YES" above.
-clock_hctosys="<% if node[:virtualization][:role] == "guest" %>NO<% else %>YES<% end %>"
+clock_hctosys="NO"
 
 # If you wish to pass any other arguments to hwclock during bootup,
 # you may do so here. Alpha users may wish to use --arc or --srm here.

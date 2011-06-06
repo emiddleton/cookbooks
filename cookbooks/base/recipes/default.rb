@@ -66,16 +66,9 @@ file "/etc/resolv.conf" do
   content "search #{node[:domain]}\nnameserver 8.8.8.8\nnameserver 8.8.4.4\n"
 end
 
-if node[:virtualization][:role] == "guest" and node[:virtualization][:emulator] = "vserver"
-  execute "sysctl-reload" do
-    command "/bin/true"
-    action :nothing
-  end
-else
-  execute "sysctl-reload" do
-    command "/sbin/sysctl -p /etc/sysctl.conf"
-    action :nothing
-  end
+execute "sysctl-reload" do
+  command "/sbin/sysctl -p /etc/sysctl.conf"
+  action :nothing
 end
 
 template "/etc/sysctl.conf" do
@@ -86,16 +79,9 @@ template "/etc/sysctl.conf" do
   notifies :run, "execute[sysctl-reload]"
 end
 
-if node[:virtualization][:emulator] == "vserver" and node[:virtualization][:role] == "guest"
-  execute "init-reload" do
-    command "/bin/true"
-    action :nothing
-  end
-else
-  execute "init-reload" do
-    command "/sbin/telinit q"
-    action :nothing
-  end
+execute "init-reload" do
+  command "/sbin/telinit q"
+  action :nothing
 end
 
 template "/etc/inittab" do
