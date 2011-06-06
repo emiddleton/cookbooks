@@ -1,7 +1,7 @@
 include_recipe "portage"
 include_recipe "portage::porticron"
 
-portage_package_keywords "=app-admin/lib_users-0.3"
+package_keywords "=app-admin/lib_users-0.3"
 
 %w(
   app-admin/lib_users
