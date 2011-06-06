@@ -6,10 +6,10 @@ when "gentoo"
   set[:portage][:portdir] = "/usr/portage"
   set[:portage][:distdir] = "#{set[:portage][:portdir]}/distfiles"
   set[:portage][:pkgdir] = "#{set[:portage][:portdir]}/packages/${ARCH}"
-  default[:portage][:profile] = "#{set[:portage][:portdir]}/profiles/default/linux/amd64/LTS-1106"
+  default[:portage][:profile] = "#{set[:portage][:portdir]}/profiles/default/linux/${ARCH}/10.0"
 
   # compiler settings
-  default[:portage][:CFLAGS] = "-O2 -pipe"
+  default[:portage][:CFLAGS] = "-O2 -pipe -mno-tls-direct-seg-refs"
   default[:portage][:CXXFLAGS] = "${CFLAGS}"
 
   # build-time flags
@@ -20,7 +20,7 @@ when "gentoo"
 
   # mirror settings
   default[:portage][:MIRRORS] = %w(
-    ftp://ftp.spline.de/pub/gentoo
+    http://ftp.iij.ad.jp/pub/linux/gentoo/
   )
 
   # advanced features
