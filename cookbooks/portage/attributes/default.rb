@@ -6,7 +6,7 @@ when "gentoo"
   set[:portage][:portdir] = "/usr/portage"
   set[:portage][:distdir] = "#{set[:portage][:portdir]}/distfiles"
   set[:portage][:pkgdir] = "#{set[:portage][:portdir]}/packages/${ARCH}"
-  default[:portage][:profile] = "#{set[:portage][:portdir]}/profiles/default/linux/${ARCH}/10.0"
+  default[:portage][:profile] = "#{set[:portage][:portdir]}/profiles/default/linux/x86/10.0"
 
   # compiler settings
   default[:portage][:CFLAGS] = "-O2 -pipe -mno-tls-direct-seg-refs"
