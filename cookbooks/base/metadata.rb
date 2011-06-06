@@ -1,6 +1,5 @@
 depends "core_ext"
 depends "git"
-depends "lftp"
 depends "munin"
 depends "nagios"
 depends "ohai"
