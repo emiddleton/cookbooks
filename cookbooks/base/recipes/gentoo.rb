@@ -2,7 +2,7 @@ include_recipe "portage"
 include_recipe "portage::porticron"
 
 %w(
-  app-admin/lib_users
+  app-admin/lib_users-0.3
   app-admin/pwgen
   app-admin/pydf
   app-admin/superadduser
