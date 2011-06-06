@@ -1,5 +1,8 @@
 # Heavily refactored from veszig-portage library, which in turn is based on Chef's and Puppet's portage package provider
 
+# if not required may not exist when loaded.
+require File.join(File.dirname(__FILE__), 'package_conf')
+
 module Gentoo
   module Portage
     module Emerge
