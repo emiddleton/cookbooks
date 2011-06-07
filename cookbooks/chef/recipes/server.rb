@@ -7,6 +7,8 @@ include_recipe "nginx"
 include_recipe "openssl"
 include_recipe "rabbitmq"
 
+portage_package_use "dev-libs/gecode -gist"
+
 # setup RabbitMQ user/permissions
 amqp_pass = get_password("rabbitmq/chef")
 
@@ -115,6 +117,7 @@ end
 
 %w(
   chef-server-api
+  chef-expander
   chef-solr
 ).each do |s|
   service s do
@@ -201,8 +204,8 @@ nrpe_command "check_chef_solr" do
   command "/usr/lib/nagios/plugins/check_pidfile /var/run/chef/solr.pid"
 end
 
-nrpe_command "check_chef_solr_indexer" do
-  command "/usr/lib/nagios/plugins/check_pidfile /var/run/chef/solr-indexer.pid"
+nrpe_command "check_chef_expander" do
+  command "/usr/lib/nagios/plugins/check_pidfile /var/run/chef/chef-expander.pid"
 end
 
 nagios_service "CHEF-SERVER" do
@@ -220,7 +223,7 @@ nagios_service "CHEF-SOLR" do
   servicegroups "chef"
 end
 
-nagios_service "CHEF-SOLR-INDEXER" do
-  check_command "check_nrpe!check_chef_solr_indexer"
+nagios_service "CHEF-EXPANDER" do
+  check_command "check_nrpe!check_chef_expander"
   servicegroups "chef"
 end
