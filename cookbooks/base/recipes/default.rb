@@ -11,7 +11,6 @@ rescue
 end
 
 include_recipe "git"
-include_recipe "tmux"
 include_recipe "vim"
 
 execute "git init" do
