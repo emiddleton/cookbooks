@@ -50,7 +50,6 @@ end
 
 %w(
   bootmisc
-  consolefont
   fsck
   hostname
   hwclock
@@ -58,7 +57,7 @@ end
   localmount
   modules
   mtab
-  network
+  net.lo
   procfs
   root
   swap
@@ -71,7 +70,7 @@ end
   end
 end
 
-%w(net.eth0 local netmount).each do |f|
+%w(local net.eth0 netmount sshd udev-postmount).each do |f|
   link "/etc/runlevels/default/#{f}" do
     to "/etc/init.d/#{f}"
   end
