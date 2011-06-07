@@ -1,6 +1,6 @@
 # Configuration File For Chef (chef-client)
 
-node_name          "<%= node[:fqdn] %>"
+node_name          "<%= node[:chef][:client][:node_name] %>"
 
 log_level          :info
 log_location       "/var/log/chef/client.log"
