@@ -5,10 +5,8 @@ node_name          "<%= node.name %>"
 log_level          :info
 log_location       "/var/log/chef/client.log"
 
-#ssl_verify_mode    :verify_none
 chef_server_url    "<%= node[:chef][:client][:server_url] %>"
 
 file_cache_path    "/var/lib/chef/cache"
 file_backup_path   "/var/lib/chef/backup"
-
-#Ohai::Config[:plugin_path].unshift("/var/lib/chef/ohai")
+pid_file           "/var/run/chef/client.pid"
