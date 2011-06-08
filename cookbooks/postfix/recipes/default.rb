@@ -1,3 +1,8 @@
+# remove default virtual/mta-0
+portage "mail-mta/ssmtp" do
+  action :remove
+end
+
 portage_package_use "mail-mta/postfix" do
   use node[:postfix][:use_flags].sort.uniq
 end
