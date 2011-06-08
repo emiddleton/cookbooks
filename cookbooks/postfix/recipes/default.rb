@@ -1,5 +1,5 @@
 # remove default virtual/mta-0
-portage "mail-mta/ssmtp" do
+package "mail-mta/ssmtp" do
   action :remove
 end
 
