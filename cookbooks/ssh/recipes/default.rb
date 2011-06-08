@@ -35,6 +35,9 @@ execute "root-ssh-key" do
   creates "/root/.ssh/id_rsa"
 end
 
+package "app-admin/denyhosts" do
+  action :remove
+end
 #package "app-admin/denyhosts"
 #
 #cookbook_file "/etc/denyhosts.conf" do
