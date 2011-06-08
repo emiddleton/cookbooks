@@ -1,11 +1,11 @@
 # Configuration File For Chef (chef-client)
 
-node_name          "<%= node[:chef][:client][:node_name] %>"
+node_name          "<%= node.name %>"
 
 log_level          :info
 log_location       "/var/log/chef/client.log"
 
-ssl_verify_mode    :verify_none
+#ssl_verify_mode    :verify_none
 chef_server_url    "<%= node[:chef][:client][:server_url] %>"
 
 file_cache_path    "/var/lib/chef/cache"
